@@ -45,8 +45,7 @@ class ViewController: UIViewController {
     var yieldSelection = "SDRY" //unitl i make the menu work this is fixed to allow running the calculations!
     
     
-    //Price/Yields Toggle switch TODO
-    //Set as fixed for now
+    //Price/Yields Toggle switch
     var toggle: String = "yields"
     
     @IBOutlet weak var priceToggle: UISwitch!
@@ -89,9 +88,9 @@ class ViewController: UIViewController {
     func storeInputs () {
         if yieldIn.text != "" {
             yieldInStore = Double(yieldIn.text!)!
-            //rint(yieldInStore)
+            //print(yieldInStore)
         } else {
-            return
+            yieldInStore = 00.00
         }
         if vmIn.text != "" {
             vmInStore = Double(vmIn.text!)!
@@ -483,8 +482,12 @@ class ViewController: UIViewController {
  // Update Button calls the fucntions
     
     @IBAction func updateButton(_ sender: Any) {
-        storeInputs()
-        calculateYields()
+        if yieldIn.text != "" {
+            storeInputs()
+            calculateYields()
+        } else {
+            return
+        }
     }
     
     
