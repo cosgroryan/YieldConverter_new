@@ -45,6 +45,9 @@ class ViewController: UIViewController {
     var yieldSelection = "SDRY" //unitl i make the menu work this is fixed to allow running the calculations!
     
     
+    //Price/Yields Toggle switch TODO
+    //Set as fixed for now
+    let toggle: String = "prices"
     
     //Retrieve user Input info
     
@@ -70,7 +73,7 @@ class ViewController: UIViewController {
     func storeInputs () {
         if yieldIn.text != "" {
             yieldInStore = Double(yieldIn.text!)!
-            //print(yieldInStore)
+            //rint(yieldInStore)
         } else {
             return
         }
@@ -78,24 +81,21 @@ class ViewController: UIViewController {
             vmInStore = Double(vmIn.text!)!
             //print(vmInStore)
         } else {
-            return
+            vmInStore = 00.00
         }
         if hhIn.text != "" {
             hhInStore = Double(hhIn.text!)!
             //print(hhInStore)
         } else {
-            return
+            hhInStore = 00.00
         }
         if priceIn.text != "" {
             priceInStore = Double(priceIn.text!)!
-            //print(vmInStore)
+           // rint(priceInStore)
         } else {
-            return
+            priceInStore = 00.00
         }
-        //print(yieldInStore)
-        //print(vmInStore)
-        //print(hhInStore)
-        //print(priceInStore)
+
     }
         
     // create 6 functions, one for each of the potential input yield types, to convert to woolbase
@@ -105,129 +105,341 @@ class ViewController: UIViewController {
         let yieldDbl: Double = yieldInStore
         let hhDbl: Double = hhInStore
         let pa: Double = 7.7 - (40.6 / (7.8 + vmDbl - hhDbl))
+        var yieldDifference: Double = 0.00
+        var newPrice: Double = 0.00
         
         if yieldSelection == "SDRY" {
             var wbFinal: Double = (yieldDbl + pa) / 1.207
             wbFinal = wbFinal.roundToDecimal((2))
-            woolbaseOut.text! = "\(wbFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - wbFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                woolbaseOut.text! = "$" + "\(newPrice)"
+            } else {
+                woolbaseOut.text! = "\(wbFinal)" + "%"
+            }
             
             var sdryFinal: Double = (wbFinal * 1.207 - pa)
             sdryFinal = sdryFinal.roundToDecimal(2)
-            sdryOut.text! = "\(sdryFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - sdryFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sdryOut.text! = "$" + "\(newPrice)"
+            } else {
+                sdryOut.text! = "\(sdryFinal)" + "%"
+            }
             
             var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
             iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
-            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSixFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sixteenOut.text! = "$" + "\(newPrice)"
+            } else {
+                sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            }
             
             var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
             iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
-            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSevenFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                seventeenOut.text! = "$" + "\(newPrice)"
+            } else {
+                seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            }
             
             var jcsyFinal: Double = (wbFinal) * 1.177
             jcsyFinal = jcsyFinal.roundToDecimal(2)
-            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - jcsyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                jcsyOut.text! = "$" + "\(newPrice)"
+            } else {
+                jcsyOut.text! = "\(jcsyFinal)" + "%"
+            }
             
             var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
             acyFinal = acyFinal.roundToDecimal(2)
-            acyOut.text! = "\(acyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - acyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                acyOut.text! = "$" + "\(newPrice)"
+            } else {
+                acyOut.text! = "\(acyFinal)" + "%"
+            }
             
         } else if yieldSelection == "IWTO16%" {
             var wbFinal: Double = (yieldDbl / 1.1869 - vmDbl)
             wbFinal = wbFinal.roundToDecimal((2))
-            woolbaseOut.text! = "\(wbFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - wbFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                woolbaseOut.text! = "$" + "\(newPrice)"
+            } else {
+                woolbaseOut.text! = "\(wbFinal)" + "%"
+            }
             
             var sdryFinal: Double = (wbFinal * 1.207 - pa)
             sdryFinal = sdryFinal.roundToDecimal(2)
-            sdryOut.text! = "\(sdryFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - sdryFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sdryOut.text! = "$" + "\(newPrice)"
+            } else {
+                sdryOut.text! = "\(sdryFinal)" + "%"
+            }
             
             var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
             iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
-            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSixFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sixteenOut.text! = "$" + "\(newPrice)"
+            } else {
+                sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            }
             
             var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
             iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
-            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSevenFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                seventeenOut.text! = "$" + "\(newPrice)"
+            } else {
+                seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            }
             
             var jcsyFinal: Double = (wbFinal) * 1.177
             jcsyFinal = jcsyFinal.roundToDecimal(2)
-            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - jcsyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                jcsyOut.text! = "$" + "\(newPrice)"
+            } else {
+                jcsyOut.text! = "\(jcsyFinal)" + "%"
+            }
             
             var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
             acyFinal = acyFinal.roundToDecimal(2)
-            acyOut.text! = "\(acyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - acyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                acyOut.text! = "$" + "\(newPrice)"
+            } else {
+                acyOut.text! = "\(acyFinal)" + "%"
+            }
         } else if yieldSelection == "IWTO17%" {
             var wbFinal: Double = (yieldDbl / 1.1972 - vmDbl)
             wbFinal = wbFinal.roundToDecimal((2))
-            woolbaseOut.text! = "\(wbFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - wbFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                woolbaseOut.text! = "$" + "\(newPrice)"
+            } else {
+                woolbaseOut.text! = "\(wbFinal)" + "%"
+            }
             
             var sdryFinal: Double = (wbFinal * 1.207 - pa)
             sdryFinal = sdryFinal.roundToDecimal(2)
-            sdryOut.text! = "\(sdryFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - sdryFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sdryOut.text! = "$" + "\(newPrice)"
+            } else {
+                sdryOut.text! = "\(sdryFinal)" + "%"
+            }
             
             var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
             iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
-            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSixFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sixteenOut.text! = "$" + "\(newPrice)"
+            } else {
+                sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            }
             
             var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
             iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
-            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSevenFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                seventeenOut.text! = "$" + "\(newPrice)"
+            } else {
+                seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            }
             
             var jcsyFinal: Double = (wbFinal) * 1.177
             jcsyFinal = jcsyFinal.roundToDecimal(2)
-            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - jcsyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                jcsyOut.text! = "$" + "\(newPrice)"
+            } else {
+                jcsyOut.text! = "\(jcsyFinal)" + "%"
+            }
             
             var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
             acyFinal = acyFinal.roundToDecimal(2)
-            acyOut.text! = "\(acyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - acyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                acyOut.text! = "$" + "\(newPrice)"
+            } else {
+                acyOut.text! = "\(acyFinal)" + "%"
+            }
             
         } else if yieldSelection == "JCSY" {
             var wbFinal: Double = (yieldDbl / 1.177)
             wbFinal = wbFinal.roundToDecimal((2))
-            woolbaseOut.text! = "\(wbFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - wbFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                woolbaseOut.text! = "$" + "\(newPrice)"
+            } else {
+                woolbaseOut.text! = "\(wbFinal)" + "%"
+            }
             
             var sdryFinal: Double = (wbFinal * 1.207 - pa)
             sdryFinal = sdryFinal.roundToDecimal(2)
-            sdryOut.text! = "\(sdryFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - sdryFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sdryOut.text! = "$" + "\(newPrice)"
+            } else {
+                sdryOut.text! = "\(sdryFinal)" + "%"
+            }
             
             var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
             iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
-            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSixFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sixteenOut.text! = "$" + "\(newPrice)"
+            } else {
+                sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            }
             
             var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
             iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
-            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSevenFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                seventeenOut.text! = "$" + "\(newPrice)"
+            } else {
+                seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            }
             
             var jcsyFinal: Double = (wbFinal) * 1.177
             jcsyFinal = jcsyFinal.roundToDecimal(2)
-            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - jcsyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                jcsyOut.text! = "$" + "\(newPrice)"
+            } else {
+                jcsyOut.text! = "\(jcsyFinal)" + "%"
+            }
             
             var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
             acyFinal = acyFinal.roundToDecimal(2)
-            acyOut.text! = "\(acyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - acyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                acyOut.text! = "$" + "\(newPrice)"
+            } else {
+                acyOut.text! = "\(acyFinal)" + "%"
+            }
         } else if yieldSelection == "ACY" {
             var wbFinal: Double = (yieldDbl + 5.12 - (0.1616 * vmDbl)) / 1.1972
             wbFinal = wbFinal.roundToDecimal((2))
-            woolbaseOut.text! = "\(wbFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - wbFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                woolbaseOut.text! = "$" + "\(newPrice)"
+            } else {
+                woolbaseOut.text! = "\(wbFinal)" + "%"
+            }
             
             var sdryFinal: Double = (wbFinal * 1.207 - pa)
             sdryFinal = sdryFinal.roundToDecimal(2)
-            sdryOut.text! = "\(sdryFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - sdryFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sdryOut.text! = "$" + "\(newPrice)"
+            } else {
+                sdryOut.text! = "\(sdryFinal)" + "%"
+            }
             
             var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
             iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
-            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSixFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                sixteenOut.text! = "$" + "\(newPrice)"
+            } else {
+                sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            }
             
             var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
             iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
-            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - iwtoSevenFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                seventeenOut.text! = "$" + "\(newPrice)"
+            } else {
+                seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            }
             
             var jcsyFinal: Double = (wbFinal) * 1.177
             jcsyFinal = jcsyFinal.roundToDecimal(2)
-            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - jcsyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                jcsyOut.text! = "$" + "\(newPrice)"
+            } else {
+                jcsyOut.text! = "\(jcsyFinal)" + "%"
+            }
             
             var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
             acyFinal = acyFinal.roundToDecimal(2)
-            acyOut.text! = "\(acyFinal)" + "%"
+            yieldDifference = 1 - (yieldDbl - acyFinal)/yieldDbl
+            newPrice = priceInStore / yieldDifference
+            newPrice = newPrice.roundToDecimal((2))
+            if toggle == "prices" {
+                acyOut.text! = "$" + "\(newPrice)"
+            } else {
+                acyOut.text! = "\(acyFinal)" + "%"
+            }
         } else {
 
             woolbaseOut.text! = "--" + "%"
@@ -252,7 +464,7 @@ class ViewController: UIViewController {
     
     
  
- // Button calls the fucntions
+ // Update Button calls the fucntions
     
     @IBAction func updateButton(_ sender: Any) {
         storeInputs()
