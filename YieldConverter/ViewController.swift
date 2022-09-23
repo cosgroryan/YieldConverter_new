@@ -47,7 +47,23 @@ class ViewController: UIViewController {
     
     //Price/Yields Toggle switch TODO
     //Set as fixed for now
-    let toggle: String = "prices"
+    var toggle: String = "yields"
+    
+    @IBOutlet weak var priceToggle: UISwitch!
+    @IBAction func switchDidChange(_ sender: UISwitch) {
+        if sender.isOn {
+            toggle = "prices"
+            storeInputs()
+            calculateYields()
+        } else {
+            toggle = "yields"
+            storeInputs()
+            calculateYields()
+        }
+    }
+    
+
+    
     
     //Retrieve user Input info
     
@@ -128,7 +144,7 @@ class ViewController: UIViewController {
             if toggle == "prices" {
                 sdryOut.text! = "$" + "\(newPrice)"
             } else {
-                sdryOut.text! = "\(sdryFinal)" + "%"
+                sdryOut.text! = "\(yieldDbl)" + "%"
             }
             
             var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
@@ -206,7 +222,7 @@ class ViewController: UIViewController {
             if toggle == "prices" {
                 sixteenOut.text! = "$" + "\(newPrice)"
             } else {
-                sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+                sixteenOut.text! = "\(yieldDbl)" + "%"
             }
             
             var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
@@ -283,7 +299,7 @@ class ViewController: UIViewController {
             if toggle == "prices" {
                 seventeenOut.text! = "$" + "\(newPrice)"
             } else {
-                seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+                seventeenOut.text! = "\(yieldDbl)" + "%"
             }
             
             var jcsyFinal: Double = (wbFinal) * 1.177
@@ -361,7 +377,7 @@ class ViewController: UIViewController {
             if toggle == "prices" {
                 jcsyOut.text! = "$" + "\(newPrice)"
             } else {
-                jcsyOut.text! = "\(jcsyFinal)" + "%"
+                jcsyOut.text! = "\(yieldDbl)" + "%"
             }
             
             var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
@@ -438,7 +454,7 @@ class ViewController: UIViewController {
             if toggle == "prices" {
                 acyOut.text! = "$" + "\(newPrice)"
             } else {
-                acyOut.text! = "\(acyFinal)" + "%"
+                acyOut.text! = "\(yieldDbl)" + "%"
             }
         } else {
 
