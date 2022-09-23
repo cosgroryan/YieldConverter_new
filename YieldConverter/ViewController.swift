@@ -7,6 +7,12 @@
 
 import UIKit
 
+extension Double {
+    func roundToDecimal(_ fractionDigits: Int) -> Double {
+        let multiplier = pow(10, Double(fractionDigits))
+        return Darwin.round(self * multiplier) / multiplier
+    }
+}
 
 
 
@@ -29,6 +35,15 @@ class ViewController: UIViewController {
     }
 
     //Picker Yield Goes here:
+    @IBOutlet weak var menu: UIMenu!
+    
+    @IBAction func menuButton(_ sender: Any) {
+        print("hello")
+    }
+    
+    let yieldPickerData: NSArray = ["","SDRY","IWTO16%","IWTO17%","JCSY","ACY"]
+    var yieldSelection = "SDRY" //unitl i make the menu work this is fixed to allow running the calculations!
+    
     
     
     //Retrieve user Input info
@@ -40,18 +55,8 @@ class ViewController: UIViewController {
     
     
    
-
-    @IBOutlet weak var menu: UIMenu!
     
-    @IBAction func menuButton(_ sender: Any) {
-        print("hello")
-    }
-    
-    
-    
-    let yieldPickerData: NSArray = ["","SDRY","IWTO16%","IWTO17%","JCSY","ACY"]
-    var yieldSelection = ""
-    
+  
     
     //Globals
     var yieldInStore: Double = 00.00
@@ -95,16 +100,163 @@ class ViewController: UIViewController {
         
     // create 6 functions, one for each of the potential input yield types, to convert to woolbase
     
+    func calculateYields () {
+        let vmDbl: Double = vmInStore
+        let yieldDbl: Double = yieldInStore
+        let hhDbl: Double = hhInStore
+        let pa: Double = 7.7 - (40.6 / (7.8 + vmDbl - hhDbl))
+        
+        if yieldSelection == "SDRY" {
+            var wbFinal: Double = (yieldDbl + pa) / 1.207
+            wbFinal = wbFinal.roundToDecimal((2))
+            woolbaseOut.text! = "\(wbFinal)" + "%"
+            
+            var sdryFinal: Double = (wbFinal * 1.207 - pa)
+            sdryFinal = sdryFinal.roundToDecimal(2)
+            sdryOut.text! = "\(sdryFinal)" + "%"
+            
+            var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
+            iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
+            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            
+            var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
+            iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
+            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            
+            var jcsyFinal: Double = (wbFinal) * 1.177
+            jcsyFinal = jcsyFinal.roundToDecimal(2)
+            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            
+            var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
+            acyFinal = acyFinal.roundToDecimal(2)
+            acyOut.text! = "\(acyFinal)" + "%"
+            
+        } else if yieldSelection == "IWTO16%" {
+            var wbFinal: Double = (yieldDbl / 1.1869 - vmDbl)
+            wbFinal = wbFinal.roundToDecimal((2))
+            woolbaseOut.text! = "\(wbFinal)" + "%"
+            
+            var sdryFinal: Double = (wbFinal * 1.207 - pa)
+            sdryFinal = sdryFinal.roundToDecimal(2)
+            sdryOut.text! = "\(sdryFinal)" + "%"
+            
+            var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
+            iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
+            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            
+            var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
+            iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
+            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            
+            var jcsyFinal: Double = (wbFinal) * 1.177
+            jcsyFinal = jcsyFinal.roundToDecimal(2)
+            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            
+            var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
+            acyFinal = acyFinal.roundToDecimal(2)
+            acyOut.text! = "\(acyFinal)" + "%"
+        } else if yieldSelection == "IWTO17%" {
+            var wbFinal: Double = (yieldDbl / 1.1972 - vmDbl)
+            wbFinal = wbFinal.roundToDecimal((2))
+            woolbaseOut.text! = "\(wbFinal)" + "%"
+            
+            var sdryFinal: Double = (wbFinal * 1.207 - pa)
+            sdryFinal = sdryFinal.roundToDecimal(2)
+            sdryOut.text! = "\(sdryFinal)" + "%"
+            
+            var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
+            iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
+            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            
+            var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
+            iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
+            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            
+            var jcsyFinal: Double = (wbFinal) * 1.177
+            jcsyFinal = jcsyFinal.roundToDecimal(2)
+            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            
+            var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
+            acyFinal = acyFinal.roundToDecimal(2)
+            acyOut.text! = "\(acyFinal)" + "%"
+            
+        } else if yieldSelection == "JCSY" {
+            var wbFinal: Double = (yieldDbl / 1.177)
+            wbFinal = wbFinal.roundToDecimal((2))
+            woolbaseOut.text! = "\(wbFinal)" + "%"
+            
+            var sdryFinal: Double = (wbFinal * 1.207 - pa)
+            sdryFinal = sdryFinal.roundToDecimal(2)
+            sdryOut.text! = "\(sdryFinal)" + "%"
+            
+            var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
+            iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
+            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            
+            var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
+            iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
+            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            
+            var jcsyFinal: Double = (wbFinal) * 1.177
+            jcsyFinal = jcsyFinal.roundToDecimal(2)
+            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            
+            var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
+            acyFinal = acyFinal.roundToDecimal(2)
+            acyOut.text! = "\(acyFinal)" + "%"
+        } else if yieldSelection == "ACY" {
+            var wbFinal: Double = (yieldDbl + 5.12 - (0.1616 * vmDbl)) / 1.1972
+            wbFinal = wbFinal.roundToDecimal((2))
+            woolbaseOut.text! = "\(wbFinal)" + "%"
+            
+            var sdryFinal: Double = (wbFinal * 1.207 - pa)
+            sdryFinal = sdryFinal.roundToDecimal(2)
+            sdryOut.text! = "\(sdryFinal)" + "%"
+            
+            var iwtoSixFinal: Double = (wbFinal + vmDbl) * 1.1869
+            iwtoSixFinal = iwtoSixFinal.roundToDecimal(2)
+            sixteenOut.text! = "\(iwtoSixFinal)" + "%"
+            
+            var iwtoSevenFinal: Double = (wbFinal + vmDbl) * 1.1972
+            iwtoSevenFinal = iwtoSevenFinal.roundToDecimal(2)
+            seventeenOut.text! = "\(iwtoSevenFinal)" + "%"
+            
+            var jcsyFinal: Double = (wbFinal) * 1.177
+            jcsyFinal = jcsyFinal.roundToDecimal(2)
+            jcsyOut.text! = "\(jcsyFinal)" + "%"
+            
+            var acyFinal: Double = (wbFinal * 1.1972 + 0.1616 * vmDbl - 5.12)
+            acyFinal = acyFinal.roundToDecimal(2)
+            acyOut.text! = "\(acyFinal)" + "%"
+        } else {
+
+            woolbaseOut.text! = "--" + "%"
+            
+
+            sdryOut.text! = "--" + "%"
+            
+
+            sixteenOut.text! = "--" + "%"
+            
+
+            seventeenOut.text! = "--" + "%"
+            
+
+            jcsyOut.text! = "--" + "%"
+            
+
+            acyOut.text! = "--" + "%"
+        }
+    }
     
     
-    //Create a function that, based on the input in the yield picker chose the right function and covert to woolbase
     
-    //Use that woolbase to fill out the output yields, assign those values to the output variables
-    
+ 
+ // Button calls the fucntions
     
     @IBAction func updateButton(_ sender: Any) {
-        
-        
+        storeInputs()
+        calculateYields()
     }
     
     
