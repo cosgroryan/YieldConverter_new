@@ -1,7 +1,6 @@
 //
 //  ViewController.swift
 //  YieldConverter
-//
 //  Created by Ryan Cosgrove on 20/09/22.
 //
 
