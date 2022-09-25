@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellClass.self, forCellReuseIdentifier: "Cell")
+        menuButton.setTitle("Select Yield", for: .normal)
         // Do any additional setup after loading the view.
         
         }
@@ -579,8 +580,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         selectedButton.setTitle(dataSource[indexPath.row], for: .normal)
         yieldSelection = dataSource[indexPath.row]
         storeInputs()
-        calculateYields()
-        removeTransparentView()
+        if yieldInStore == 0.00 {
+            removeTransparentView()
+        } else {
+            calculateYields()
+            removeTransparentView()
+        }
+        
         
     }
     
