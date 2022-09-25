@@ -11,6 +11,7 @@ class CellClass: UITableViewCell {
     
 }
 
+
 extension Double {
     func roundToDecimal(_ fractionDigits: Int) -> Double {
         let multiplier = pow(10, Double(fractionDigits))
@@ -31,22 +32,32 @@ class ViewController: UIViewController {
     @IBOutlet weak var seventeenOut: UILabel!
     @IBOutlet weak var acyOut: UILabel!
     
+    //menu button
     @IBOutlet weak var menuButton: UIButton!
     
-    
+    //menu view
     let transparentView = UIView()
     let tableView = UITableView()
     var dataSource = [String]()
-    var yieldSelection: String = "SDRY"
+    var yieldSelection: String = ""
     
     var selectedButton = UIButton()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //menu
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellClass.self, forCellReuseIdentifier: "Cell")
         menuButton.setTitle("Select Yield", for: .normal)
+        
+        //keyboard clearer
+        self.hideKeyboardWhenTappedAround()
+        
+        
         // Do any additional setup after loading the view.
         
         }
@@ -67,7 +78,7 @@ class ViewController: UIViewController {
         transparentView.addGestureRecognizer(tapgesture)
         transparentView.alpha = 0
         
-        //Add semitransparent black bagorund to make menu pop
+        //Add semitransparent black background to make menu pop
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, animations: {
             self.transparentView.alpha = 0.5
             self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 10, width: frames.width, height: CGFloat(self.dataSource.count * 50))
@@ -145,7 +156,7 @@ class ViewController: UIViewController {
     
     
     //Store the inputs as variables, make sure data is valid
-    //TODO instead fo return out of error states, create popup
+    //TODO instead fo return out of error states, create popup?
     func storeInputs () {
         if yieldIn.text != "" {
             yieldInStore = Double(yieldIn.text!)!
@@ -184,6 +195,7 @@ class ViewController: UIViewController {
         var yieldDifference: Double = 0.00
         var newPrice: Double = 0.00
         
+        // Yield selected is Dry
         if yieldSelection == "SDRY" {
             var wbFinal: Double = (yieldDbl + pa) / 1.207
             wbFinal = wbFinal.roundToDecimal((2))
@@ -251,6 +263,7 @@ class ViewController: UIViewController {
                 acyOut.text! = "\(acyFinal)" + "%"
             }
             
+            // Yield selected is 16%
         } else if yieldSelection == "IWTO16%" {
             var wbFinal: Double = (yieldDbl / 1.1869 - vmDbl)
             wbFinal = wbFinal.roundToDecimal((2))
@@ -317,6 +330,8 @@ class ViewController: UIViewController {
             } else {
                 acyOut.text! = "\(acyFinal)" + "%"
             }
+            
+            // Yield selected is 17%
         } else if yieldSelection == "IWTO17%" {
             var wbFinal: Double = (yieldDbl / 1.1972 - vmDbl)
             wbFinal = wbFinal.roundToDecimal((2))
@@ -384,6 +399,7 @@ class ViewController: UIViewController {
                 acyOut.text! = "\(acyFinal)" + "%"
             }
             
+            // Yield selected is JCSY
         } else if yieldSelection == "JCSY" {
             var wbFinal: Double = (yieldDbl / 1.177)
             wbFinal = wbFinal.roundToDecimal((2))
@@ -450,6 +466,8 @@ class ViewController: UIViewController {
             } else {
                 acyOut.text! = "\(acyFinal)" + "%"
             }
+            
+            // Yield selected is ACY
         } else if yieldSelection == "ACY" {
             var wbFinal: Double = (yieldDbl + 5.12 - (0.1616 * vmDbl)) / 1.1972
             wbFinal = wbFinal.roundToDecimal((2))
@@ -540,10 +558,10 @@ class ViewController: UIViewController {
     
     
  
- // Update Button calls the fucntions
+ // Update Button validates for selected yield and an input yield calls the fucntions, if successfull, then calls functions
     
     @IBAction func updateButton(_ sender: Any) {
-        if yieldIn.text != "" {
+        if yieldIn.text != "" && yieldSelection != "" {
             storeInputs()
             calculateYields()
         } else {
@@ -551,14 +569,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    
-    
-    
-    @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
 
 }
 
@@ -591,7 +601,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     }
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
     
 
 
