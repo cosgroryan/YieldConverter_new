@@ -6,7 +6,6 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -51,19 +50,10 @@
                                             <constraint firstAttribute="height" constant="36" id="DjS-Wu-cbm"/>
                                             <constraint firstAttribute="width" constant="135" id="L5c-Nx-W8X"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="18"/>
-                                        <menu key="menu" id="CiS-Ec-96R">
-                                            <children>
-                                                <command title="Schlum Dry 1%" menuElementState="on" id="VCe-FI-PhZ"/>
-                                                <command title="IWTO 16%" id="tTF-1V-Qwt"/>
-                                                <command title="IWTO 17%" id="4UH-5A-8my"/>
-                                                <command title="ACY" id="61K-zO-BVw"/>
-                                                <command title="JCSY 16%" id="bMn-Nb-g6Y"/>
-                                            </children>
-                                        </menu>
+                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="20"/>
                                         <state key="normal">
                                             <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <imageReference key="image" image="arrowtriangle.down" catalog="system" symbolScale="small" renderingMode="hierarchical" variableValue="0.0">
+                                            <imageReference key="image" image="chevron.down" catalog="system" symbolScale="small" renderingMode="hierarchical" variableValue="0.0">
                                                 <hierarchicalColors>
                                                     <color white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color systemColor="secondaryLabelColor"/>
@@ -73,7 +63,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="thin"/>
                                         </state>
                                         <connections>
-                                            <action selector="menuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rkw-Vf-5qq"/>
+                                            <action selector="onClickMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lxF-Mg-TXX"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3dC-AH-Anu">
@@ -231,7 +221,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="75" id="EHX-WY-XIp"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" name="Karbon-Light" family="Karbon" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -249,7 +239,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="75" id="Tel-pc-5ez"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" name="Karbon-Light" family="Karbon" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -272,7 +262,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="75" id="490-10-ECC"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" name="Karbon-Light" family="Karbon" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -290,7 +280,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="75" id="Mos-gz-L0K"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" name="Karbon-Light" family="Karbon" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -313,7 +303,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="75" id="IAe-Xb-vY5"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" name="Karbon-Light" family="Karbon" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -331,7 +321,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="75" id="cpJ-lf-jrr"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Karbon-Regular" family="Karbon" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" name="Karbon-Light" family="Karbon" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -421,7 +411,7 @@
                         <outlet property="acyOut" destination="zNg-jw-FFe" id="fIi-az-XaL"/>
                         <outlet property="hhIn" destination="M4S-ho-Ilo" id="Q0b-mS-tBN"/>
                         <outlet property="jcsyOut" destination="hPL-Ev-UIG" id="NVG-Po-eZX"/>
-                        <outlet property="menu" destination="CiS-Ec-96R" id="glS-4k-rsH"/>
+                        <outlet property="menuButton" destination="Duc-XO-2lG" id="2V6-vN-Oz0"/>
                         <outlet property="priceIn" destination="QM2-I9-yRY" id="U2D-XU-u2P"/>
                         <outlet property="priceToggle" destination="3UW-eV-ZaB" id="w9h-KZ-u3U"/>
                         <outlet property="sdryOut" destination="WHc-5R-7ic" id="RXo-EG-AqE"/>
@@ -439,7 +429,7 @@
     </scenes>
     <resources>
         <image name="Image" width="120" height="120"/>
-        <image name="arrowtriangle.down" catalog="system" width="128" height="120"/>
+        <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="fusca-02" width="75" height="45"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

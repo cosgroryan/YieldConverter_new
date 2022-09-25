@@ -7,6 +7,10 @@
 
 import UIKit
 
+class CellClass: UITableViewCell {
+    
+}
+
 extension Double {
     func roundToDecimal(_ fractionDigits: Int) -> Double {
         let multiplier = pow(10, Double(fractionDigits))
@@ -22,27 +26,83 @@ class ViewController: UIViewController {
     @IBOutlet weak var woolbaseOut: UILabel!
     @IBOutlet weak var sdryOut: UILabel!
     @IBOutlet weak var jcsyOut: UILabel!
-    @IBOutlet weak var cwfpOut: UILabel!
+    //@IBOutlet weak var cwfpOut: UILabel!
     @IBOutlet weak var sixteenOut: UILabel!
     @IBOutlet weak var seventeenOut: UILabel!
     @IBOutlet weak var acyOut: UILabel!
     
+    @IBOutlet weak var menuButton: UIButton!
+    
+    
+    let transparentView = UIView()
+    let tableView = UITableView()
+    var dataSource = [String]()
+    var yieldSelection: String = "SDRY"
+    
+    var selectedButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(CellClass.self, forCellReuseIdentifier: "Cell")
         // Do any additional setup after loading the view.
         
-    }
-
-    //Picker Yield Goes here:
-    @IBOutlet weak var menu: UIMenu!
+        }
     
-    @IBAction func menuButton(_ sender: Any) {
-        print("hello")
+   
+    //Set the view for the menu
+    func addTransparentView (frames: CGRect) {
+        let window = UIApplication.shared.keyWindow
+        transparentView.frame = window?.frame ?? self.view.frame
+        self.view.addSubview(transparentView)
+        
+        tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 10, width: frames.width, height: 0.0)
+        self.view.addSubview(tableView)
+        tableView.layer.cornerRadius = 5
+        
+        transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        let tapgesture = UITapGestureRecognizer(target:self, action: #selector(removeTransparentView))
+        transparentView.addGestureRecognizer(tapgesture)
+        transparentView.alpha = 0
+        
+        //Add semitransparent black bagorund to make menu pop
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, animations: {
+            self.transparentView.alpha = 0.5
+            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 10, width: frames.width, height: CGFloat(self.dataSource.count * 50))
+            
+        },completion: nil)
+        }
+    
+    // Return view to normal after selection
+    @objc func removeTransparentView() {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, animations: {
+            let frames = self.selectedButton.frame
+            self.transparentView.alpha = 0.0
+            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 10, width: frames.width, height: 0)
+            
+        },completion: nil)
     }
     
-    let yieldPickerData: NSArray = ["","SDRY","IWTO16%","IWTO17%","JCSY","ACY"]
-    var yieldSelection = "SDRY" //unitl i make the menu work this is fixed to allow running the calculations!
+    
+    
+    
+    
+    @IBAction func onClickMenu(_ sender: Any) {
+        dataSource = ["SDRY","IWTO16%","IWTO17%","JCSY","ACY"]
+        selectedButton = menuButton
+        addTransparentView (frames: menuButton.frame)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     //Price/Yields Toggle switch
@@ -500,6 +560,33 @@ class ViewController: UIViewController {
     }
 
 }
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.text = dataSource[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedButton.setTitle(dataSource[indexPath.row], for: .normal)
+        yieldSelection = dataSource[indexPath.row]
+        storeInputs()
+        calculateYields()
+        removeTransparentView()
+        
+    }
+    
+    }
+    
+    
 
 
 //Hi Paloma <3
