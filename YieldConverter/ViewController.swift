@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         
         
         // Do any additional setup after loading the view.
-        
+
         }
     
    
@@ -137,21 +137,22 @@ class ViewController: UIViewController {
     
     //Retrieve user Input info
     
-    @IBOutlet weak var yieldIn: UITextField!
+    @IBOutlet var yieldIn: UITextField!
     @IBOutlet weak var vmIn: UITextField!
     @IBOutlet weak var hhIn: UITextField!
     @IBOutlet weak var priceIn: UITextField!
     
     
-   
-    
-  
+
     
     //Globals
     var yieldInStore: Double = 00.00
     var vmInStore: Double = 00.00
     var hhInStore: Double = 00.00
     var priceInStore: Double = 00.00
+    
+    
+    
     
     
     //Store the inputs as variables, make sure data is valid
