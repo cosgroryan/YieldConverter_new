@@ -166,7 +166,6 @@ class ViewController: UIViewController {
                 yieldInStore = 00.00
                 yieldIn.text! = "0.0"
                 yieldIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
-                print("breaks here")
             }
         } else {
             yieldInStore = 00.00
@@ -225,6 +224,10 @@ class ViewController: UIViewController {
         var newPrice: Double = 0.00
         
         if yieldInStore == 0 {
+            yieldIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
+            return
+        } else if yieldIn.text! == "" {
+            yieldIn.text! = "0.0"
             yieldIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
             return
         } else {
@@ -601,6 +604,8 @@ class ViewController: UIViewController {
                storeInputs()
                calculateYields()
            } else {
+               yieldIn.text! = "0.0"
+               yieldIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
                return
            }
        }
