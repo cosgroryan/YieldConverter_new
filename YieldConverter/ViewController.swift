@@ -158,30 +158,59 @@ class ViewController: UIViewController {
     //TODO instead fo return out of error states, create popup?
     func storeInputs () {
         if yieldIn.text != "" {
-            yieldInStore = Double(yieldIn.text!)!
-            //print(yieldInStore)
+            if Double(yieldIn.text!) != nil {
+                yieldInStore = Double(yieldIn.text!)!
+                yieldIn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            } else {
+                yieldInStore = 00.00
+                yieldIn.text! = "0.0"
+                yieldIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
+                print("breaks here")
+            }
         } else {
             yieldInStore = 00.00
+            yieldIn.text! = "0.0"
         }
         if vmIn.text != "" {
-            vmInStore = Double(vmIn.text!)!
-            //print(vmInStore)
+            if Double(vmIn.text!) != nil {
+                vmInStore = Double(vmIn.text!)!
+                vmIn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            } else {
+                vmInStore = 00.00
+                vmIn.text! = "0.0"
+                vmIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
+            }
         } else {
             vmInStore = 00.00
+            vmIn.text! = "0.0"
         }
         if hhIn.text != "" {
-            hhInStore = Double(hhIn.text!)!
-            //print(hhInStore)
+            if Double(hhIn.text!) != nil {
+                hhInStore = Double(hhIn.text!)!
+                hhIn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            } else {
+                hhInStore = 00.00
+                hhIn.text! = "0.0"
+                hhIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
+            }
         } else {
             hhInStore = 00.00
+            hhIn.text! = "0.0"
         }
         if priceIn.text != "" {
-            priceInStore = Double(priceIn.text!)!
-           // rint(priceInStore)
+            if Double(priceIn.text!) != nil {
+                priceInStore = Double(priceIn.text!)!
+                priceIn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            } else {
+                priceInStore = 00.00
+                priceIn.text! = "0.0"
+                priceIn.backgroundColor = UIColor(red: 0.949, green: 0.149, blue: 0.0745, alpha: 1)
+            }
         } else {
             priceInStore = 00.00
+            priceIn.text! = "0.0"
+            
         }
-
     }
         
     // create 6 functions, one for each of the potential input yield types, to convert to woolbase
